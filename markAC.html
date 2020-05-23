@@ -85,128 +85,64 @@
 
 <!--Checkbox Settings-->
 <div class="jumbotron" id="checkboxes">
-    <form name="listForm">
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="modify" onchange="checkTotal()" value="" id="bladeSong">
+            <input class="form-check-input" type="checkbox" onchange="checkTotal()" value="" id="bladeSong">
             <label class="form-check-label" for="defaultCheck1">
             Blade Song (BA)
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="modify"  onchange="checkTotal()" value="" id="mageArmor">
+            <input class="form-check-input" type="checkbox"  onchange="checkTotal()" value="" id="mageArmor">
             <label class="form-check-label" for="defaultCheck1">
             Mage Armor (A)
             </label>
         </div>
-    </form>
 </div>
 
 <script>
     let D = Number(document.getElementById("D").innerText.substring(1))
     let I = Number(document.getElementById("I").innerText.substring(1))
 
+    //Base Definitions:
+    let BaseArmor = 10;
+    let DexArmorBonus = 5;
+    let CloakArmorBonus = 1 
+    let BladeSongArmorBonus = 0;
+    let MageArmor = 13 + D;
+    BaseACArray = [BaseArmor, DexArmorBonus, CloakArmorBonus]
        
     // Bladesong is Intelligence modifier to your AC
-    // Mage Armor is 13 + Dex Modifier
+    // Mage Armor replaces base armor with a 13
 
     
 
     let mageArmorInput = document.getElementById("mageArmor")
     let bladeSongInput = document.getElementById("bladeSong")
 
-    document.getElementById("AC").innerText = 16
-
+    document.getElementById("AC").innerText = this.ArmorCalc(BaseACArray)
 
 function ArmorCalc(ArmorArray){
+    Armor = 0
     for (var i = 0; i <ArmorArray.length; i++){
         Armor += ArmorArray[i]
     }
+    console.log("ArmorCalc", Armor)
     return Armor
 }
 
-    function checkTotal(){
-        //Base Definitions:
-        let BaseArmor = 10;
-        let DexArmorBonus = 5;
-        let CloakArmorBonus = 1 
-        let BladesongArmorBonus = 0;
-        let MageArmor = 13 + D;
-        Armor = 0;
-        ArmorArray = [BaseArmor, DexArmorBonus, CloakArmorBonus, BladesongArmorBonus]
-
-
-        if (mageArmorInput.checked == true){
-            BaseArmor = MageArmor
-        }
-        if (bladeSongInput == true){
-            BladeSongArmorBonus = I;
-        }
-        this.ArmorCalc(ArmorArray)
-
-        document.getElementById("AC").innerText = this.Armor
-    }
-
-
-
-/*
-
-        if (bladeSongInput.checked == true && mageArmorInput.checked == true){
-            totalArmorClass = MageArmor + Bladesong
-        } else if (bladeSongInput.checked == true ** mageArmorInput == false){
-            totalArmorClass = BaseArmorClass + Bladesong
-        } else if (bladeSongInput.checked == false && totalArmorClass > baseArmorClass){
-            totalArmorClass = totalArmorClass - Bladesong
-        }
-        
-        document.getElementById("AC").innerText = totalArmorClass
-
-    }
-
-
-
-
-
-    mageArmorInput.addEventListener("change", this.armorClass())// this.mageArmorChange())
-    bladeSongInput.addEventListener("change",this.armorClass())// this.bladeSongChange())
-
-    document.getElementById("AC").innerHTML = totalArmorClass;
-
-    console.log("total Armor Class", totalArmorClass)
-    function armorClass(){
-        if (mageArmorInput.checked == true)
-        {(totalArmorClass++)*(MageArmor- baseArmorClass)}
-        if (mageArmorInput.checked == false && totalArmorClass > baseArmorClass)
-        {(totalArmorClass--)*(MageArmor- baseArmorClass)}
-        if (bladeSongInput.checked == true)
-        {(totalArmorClass++)*(Bladesong)}
-        if (mageArmorInput.checked == false && totalArmorClass > baseArmorClass)
-        {(totalArmorClass--)*(Bladesong)}
-
-        console.log("total Armor Class", totalArmorClass)
-        
-    }
-
-
-
-    // When Mage Armor is active, Mark's AC is equal to 13 + his dex modifier
-    function mageArmorChange(){
+function checkTotal(){
     if (mageArmorInput.checked == true){
-        console.log("Mage Armor")
-        totalArmorClass =  + baseArmorClass;
-    } if (mageArmorInput.checked == false && totalArmorClass > baseArmorClass) { 
-        totalArmorClass = baseArmorClass;}
-    document.getElementById("AC").innerHTML = totalArmorClass
-    }
-    // When bladesong is active Mark gains AC equal to his Intelligence modifier
-    function bladeSongChange(){
-        console.log("Bladesong")
+    BaseArmor = 13
+    } else { BaseArmor = 10}
     if (bladeSongInput.checked == true){
-        totalArmorClass = totalArmorClass + Bladesong
-    } if (bladeSongInput.checked == false && totalArmorClass > 16){
-        totalArmorClass = totalArmorClass - Bladesong
-    }
-    document.getElementById("AC").innerHTML = totalArmorClass
-    }*/
+        BladeSongArmorBonus = I;
+    } else {BladeSongArmorBonus = 0}
+
+    let ArmorArray = [BaseArmor, DexArmorBonus, CloakArmorBonus, BladeSongArmorBonus]
+    let modifiedArmor = this.ArmorCalc(ArmorArray)
+    document.getElementById("AC").innerText = modifiedArmor
+}
+
 </script>
 
 
