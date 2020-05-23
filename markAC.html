@@ -8,14 +8,16 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>What is Mark's Armor Class</title>
+    <title>Mark Combat Quick Reference</title>
   </head>
   <style>
 
 .grid-container {
-  display: grid;
-  grid-template-columns: auto auto auto auto auto auto;
-  padding: 10px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto;
+    flex-wrap: wrap;
+    padding: 10px;
 }
 .grid-item {
   background-color: rgba(255, 255, 255, 0.8);
@@ -25,81 +27,174 @@
   text-align: center;
 }
 
-#ACDisplay h3, #AC{
-    display: inline;
-    vertical-align: text-bottom;
+.jumbotron{
+    border-radius: 0px;
 }
 
 #AC{
     font-weight:bold;
+    font-size: 80px;
 }
 
 #checkboxes {
-    max-width: 300 px;
+    float: left;
+    width:auto;
+    margin-left: 50px;
+    padding: 32px 32px 32px 32px;
+    border-radius: 0px;
 }
+
+#ACDisplay{
+    text-align: center;
+    float:right;
+    width:auto;
+    margin-right: 50px; 
+    padding-top:32px;
+    padding-bottom:32px;
+    border-radius:0px;
+}
+ul {
+    padding-inline-start: 20px;
+}
+
+#weaponTable{
+    margin-left: 50px;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 5px;
+}
+
+#rollHit, #rollDamage{
+    text-align: center;
+}
+
   </style>
 
   <body>
 <!--Header-->
-    <h1>What is Mark's Current Armor Class?</h1>
-
-<!--Armor Class Output-->
-    <div class="jumbotron" id="ACDisplay">
-        <h3>Mark's AC is:</h3><h1 id="AC"></h1>
-    </div>
-
+    <h1>Mark Combat Quick Reference</h1>
 <!--Characteristic Scores-->
     <div class="grid-container">
         <div class="grid-item">
-            <h3>Strength</h3>
+            <h3>Strength:</h3>
             <h3>10</h3>
+            <hr class="solid">
             <h4>0</h4>
         </div>
         <div class="grid-item">
-            <h3>Dexterity</h3>
+            <h3>Dexterity:</h3>
             <h3>20</h3>
+            <hr class="solid">
             <h4 id=D>+5</h4>
         </div>
         <div class="grid-item">
-            <h3>Constitution</h3>
+            <h3>Constitution:</h3>
             <h3>14</h3>
+            <hr class="solid">
             <h4 id=C>+2</h4>
         </div>
         <div class="grid-item">
-            <h3>Intelligence</h3>
+            <h3>Intelligence:</h3>
             <h3>15</h3>
+            <hr class="solid">
             <h4 id=I>+2</h4>
         </div>
         <div class="grid-item">
-            <h3>Wisdom</h3>
+            <h3>Wisdom:</h3>
             <h3>13</h3>
+            <hr class="solid">
             <h4 id=W>+1</h4>
         </div>
         <div class="grid-item">
-            <h3>Charisma</h3>
+            <h3>Charisma:</h3>
             <h3>8</h3>
+            <hr class="solid">
             <h4 id=C>-1</h4>
         </div>
       </div>
 
 
-<!--Checkbox Settings-->
-<div class="jumbotron" id="checkboxes">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" onchange="checkTotal()" value="" id="bladeSong">
-            <label class="form-check-label" for="defaultCheck1">
-            Blade Song (BA)
-            </label>
+
+<!--Checkbox Settings and Armor Class Components-->
+<div class="row">
+    <div class="jumbotron" id="checkboxes">
+        <h3>Armor Class Components</h3>
+        <hr class="solid">
+            <h4>Static:</h4>
+            <ul>
+                <li>Unarmored: +10</li>
+                <li>Cloack of Protection: +1</li>
+            </ul>
+            <hr class="solid">
+            <h4>Dynamic:</h4>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" onchange="checkTotal()" value="" id="bladeSong">
+                <label class="form-check-label" for="defaultCheck1">
+                Blade Song (BA)
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  onchange="checkTotal()" value="" id="mageArmor">
+                <label class="form-check-label" for="defaultCheck1">
+                Mage Armor (A)
+                </label>
+            </div>
+            <hr class="solid">
+    </div>
+
+    <!--Armor Class Output-->
+    <div class="jumbotron" id="ACDisplay">
+        <h1>Mark's Armor Class:</h1>
+        <h1 id="AC"></h1>
+    </div>
+</div>
+<!--Weapon Values-->
+<div class="row">
+    <div class="jumbotron" id="weaponTable">
+        <table style="width:100%">
+            <tr>
+              <th>Name</th>
+              <th>Info</th>
+              <th>Hit</th>
+              <th>Damage</th>
+            </tr>
+            <tr>
+              <td><input class="form-check-input" type="checkbox" id="Fiora">Fiora</td>
+              <td>Archeron Rapier</td>
+              <td>+8</td>
+              <td>1d8+6</td>
+            </tr>
+            <tr>
+                <td><input class="form-check-input" type="checkbox" id="McClane">McClane</td>
+                <td>Moon Touched Scimitar</td>
+                <td>+7</td>
+                <td>1d6+5</td>
+            </tr>
+          </table>
+    </div>
+
+    <div class="jumbotron" id="rollHit">
+        <div id="hit">
+            <h1>Hit</h1>
+            <button type="button" class="btn">Hit</button>
+            <h1 id="hitValue">0</h1>
+
         </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox"  onchange="checkTotal()" value="" id="mageArmor">
-            <label class="form-check-label" for="defaultCheck1">
-            Mage Armor (A)
-            </label>
+    </div>
+    <div class="jumbotron" id="rollDamage">
+        <div id="damage">
+            <h1> Damage</h1>
+            <button type="button" class="btn">Damage</button>
+            <h1 id="damageRoll">0</h1>
         </div>
+    </div>
 </div>
 
+
 <script>
+// AC Script Begin
     let D = Number(document.getElementById("D").innerText.substring(1))
     let I = Number(document.getElementById("I").innerText.substring(1))
 
@@ -109,8 +204,7 @@
     let CloakArmorBonus = 1 
     let BladeSongArmorBonus = 0;
     let MageArmor = 13 + D;
-    BaseACArray = [BaseArmor, DexArmorBonus, CloakArmorBonus]
-       
+    BaseACArray = [BaseArmor, DexArmorBonus, CloakArmorBonus]  
     // Bladesong is Intelligence modifier to your AC
     // Mage Armor replaces base armor with a 13
 
@@ -121,6 +215,7 @@
 
     document.getElementById("AC").innerText = this.ArmorCalc(BaseACArray)
 
+//Calculates Armor Class from Array Values
 function ArmorCalc(ArmorArray){
     Armor = 0
     for (var i = 0; i <ArmorArray.length; i++){
@@ -129,7 +224,7 @@ function ArmorCalc(ArmorArray){
     console.log("ArmorCalc", Armor)
     return Armor
 }
-
+//Modifies Armor Class Array
 function checkTotal(){
     if (mageArmorInput.checked == true){
     BaseArmor = 13
@@ -142,6 +237,9 @@ function checkTotal(){
     let modifiedArmor = this.ArmorCalc(ArmorArray)
     document.getElementById("AC").innerText = modifiedArmor
 }
+
+//Damage Script End
+
 
 </script>
 
