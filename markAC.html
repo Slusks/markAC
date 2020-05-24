@@ -182,6 +182,10 @@ table, th, td {
                 <td>1d6+5</td>
             </tr>
           </table>
+          <br>
+          <div style="text-align:center;">
+              <button type="button" class="btn" onclick="resetRolls()">Reset</button>
+          </div>
     </div>
 
     <div class="jumbotron" id="rollHit">
@@ -293,6 +297,11 @@ function rollDamage(){
         document.getElementById("damageRoll").innerText = damage
     })
 }// end rollDamage
+
+function resetRolls(){
+    document.getElementById("hitRoll").innerText = 0;
+    document.getElementById("damageRoll").innerText = 0;
+}
 
 
 
