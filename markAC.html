@@ -161,13 +161,22 @@ table, th, td {
               <th>Damage</th>
             </tr>
             <tr>
-              <td><input class="form-check-input" type="checkbox" id="Fiora">Fiora</td>
+
+              <td>
+                <div class="radio">
+                  <input type="radio" name="optradio" id="Fiora" checked>Fiora
+                </div>
+              </td>
               <td>Archeron Rapier</td>
               <td>+8</td>
               <td>1d8+6</td>
             </tr>
             <tr>
-                <td><input class="form-check-input" type="checkbox" id="McClane">McClane</td>
+                <td>
+                    <div class="radio">
+                        <input  type="radio" name="optradio" id="McClane">McClane
+                      </div>
+                </td>
                 <td>Moon Touched Scimitar</td>
                 <td>+7</td>
                 <td>1d6+5</td>
@@ -178,15 +187,15 @@ table, th, td {
     <div class="jumbotron" id="rollHit">
         <div id="hit">
             <h1>Hit</h1>
-            <button type="button" class="btn">Hit</button>
-            <h1 id="hitValue">0</h1>
+            <button type="button" class="btn" onclick="rollHit()">Hit</button>
+            <h1 id="hitRoll">0</h1>
 
         </div>
     </div>
     <div class="jumbotron" id="rollDamage">
         <div id="damage">
             <h1> Damage</h1>
-            <button type="button" class="btn">Damage</button>
+            <button type="button" class="btn" onclick="rollDamage()">Damage</button>
             <h1 id="damageRoll">0</h1>
         </div>
     </div>
@@ -238,7 +247,54 @@ function checkTotal(){
     document.getElementById("AC").innerText = modifiedArmor
 }
 
-//Damage Script End
+// Hit and Damage Script Start
+var baseURL = "https://www.random.org/integers/"
+
+let Fiora = document.getElementById("Fiora")
+let McClane = document.getElementById("McClane")
+
+function rollHit(){
+    if (Fiora.checked == true){
+        console.log("Fiora True")
+        var hit = 8;    }
+    else if (McClane.checked == true){
+        console.log("McClane True")
+        var hit = 7;
+    } else {console.log("no weapon selected")}
+
+    let apiURL = baseURL+`?num=1&min=1&max=20&col=1&base=10&format=plain&rnd=new`
+    let promise = fetch(apiURL)
+    .then(response => response.json())
+    .then(data => {
+        console.log("Random Num Return:", data)
+        hit = (Number(data) + hit)
+        document.getElementById("hitRoll").innerText = hit
+    })
+} // rolldHit
+
+function rollDamage(){
+    if (Fiora.checked == true){
+        console.log("Fiora True")
+        var int = 8;
+        var bonus = 6
+    }
+    else if (McClane.checked == true){
+        console.log("McClane True")
+        var int = 6;
+        var bonus = 5
+    } else {console.log("no weapon selected")}
+
+    let apiURL = baseURL+`?num=1&min=1&max=`+`${int}`+`&col=1&base=10&format=plain&rnd=new`
+    let promise = fetch(apiURL)
+    .then(response => response.json())
+    .then(data => {
+        console.log("Random Num Return:", data)
+        damage = (Number(data) + bonus)
+        document.getElementById("damageRoll").innerText = damage
+    })
+}// end rollDamage
+
+
 
 
 </script>
