@@ -145,6 +145,12 @@ table, th, td {
                 Mage Armor (A)
                 </label>
             </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  onchange="checkTotal()" value="" id="haste">
+                <label class="form-check-label" for="defaultCheck1">
+                Haste (A)
+                </label>
+            </div>
             <hr class="solid">
     </div>
 
@@ -221,6 +227,7 @@ table, th, td {
     let CloakArmorBonus = 1 
     let BladeSongArmorBonus = 0;
     let MageArmor = 13 + D;
+    let Haste = 0
     BaseACArray = [BaseArmor, DexArmorBonus, CloakArmorBonus]  
     // Bladesong is Intelligence modifier to your AC
     // Mage Armor replaces base armor with a 13
@@ -249,8 +256,11 @@ function checkTotal(){
     if (bladeSongInput.checked == true){
         BladeSongArmorBonus = I;
     } else {BladeSongArmorBonus = 0}
+    if (haste.checked == true){
+        Haste = 2
+    } else {Haste = 0}
 
-    let ArmorArray = [BaseArmor, DexArmorBonus, CloakArmorBonus, BladeSongArmorBonus]
+    let ArmorArray = [BaseArmor, DexArmorBonus, CloakArmorBonus, BladeSongArmorBonus, Haste]
     let modifiedArmor = this.ArmorCalc(ArmorArray)
     document.getElementById("AC").innerText = modifiedArmor
 }
@@ -278,7 +288,7 @@ function rollHit(){
         hit = (Number(data) + hit)
         document.getElementById("hitRoll").innerText = hit
     })
-} // rolldHit
+}
 
 function rollDamage(){
     if (Fiora.checked == true){
